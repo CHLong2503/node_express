@@ -1,4 +1,4 @@
-import express from "express";
+import { Router } from "express";
 import {
   getAll,
   getDetail,
@@ -8,12 +8,12 @@ import {
 } from "../controllers/product.js";
 import { checkPermission } from "../middleware/checkPermission.js";
 
-const router = express.Router();
+const routerProduct = Router();
 
-router.get("/", getAll);
-router.get("/:id", getDetail);
-router.post("/", checkPermission, create);
-router.put("/:id", checkPermission, update);
-router.delete("/:id", checkPermission, remove);
+routerProduct.get("/", getAll);
+routerProduct.get("/:id", getDetail);
+routerProduct.post("/", checkPermission, create);
+routerProduct.put("/:id", checkPermission, update);
+routerProduct.delete("/:id", checkPermission, remove);
 
-export default router;
+export default routerProduct;

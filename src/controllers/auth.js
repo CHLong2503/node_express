@@ -76,14 +76,16 @@ export const signIn = async (req, res) => {
       });
     }
     // Step 4: Create JWT
-    const accessToken = jwt.sign({ _id: user._id }, JWT_SECRET);
-    console.log(accessToken);
+    const accessToken = jwt.sign({ _id: user._id }, JWT_SECRET, {
+      expiresIn: "1d",
+    });
+
     // Step 5: Notice to user when succeed
     user.password = undefined;
     return res.status(200).json({
       message: "User signed in successfully",
       user,
-      token: accessToken,
+      accessToken: accessToken,
     });
   } catch (error) {
     return res.status(500).json({
