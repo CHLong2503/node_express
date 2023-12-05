@@ -3,26 +3,11 @@ import Product from "../models/Products.js";
 import productValidator from "../validations/product.js";
 
 // get all products
-export const getList = async (req, res) => {
+export const getAll = async (req, res) => {
   try {
-    // const products = await Product.find().populate("categoryId");
-    const {
-      _page = 1,
-      _limit = 10,
-      _sort = "createdAt",
-      _order = "asc",
-    } = req.query;
-
-    const options = {
-      page: _page,
-      limit: _limit,
-      sort: { [_sort]: _order === "asc" ? 1 : -1 },
-    };
-
-    const products = await Product.paginate({}, options);
+    const products = await Product.find().populate("categoryId");
     console.log(products);
-
-    if (!products.docs || products.docs.length === 0) {
+    if (products.length === 0) {
       return res.status(404).json({ msg: "No product found" });
     }
     return res.status(200).json({
