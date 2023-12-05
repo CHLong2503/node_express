@@ -8,7 +8,7 @@ const { JWT_SECRET } = process.env;
 export const checkPermission = async (req, res, next) => {
   try {
     // Step 1: Did user sign in?
-    const token = req.headers.authorization?.split("")[1];
+    const token = req.headers.authorization?.split(" ")[1];
 
     // Step 2: Check token
     if (!token) {
@@ -26,7 +26,7 @@ export const checkPermission = async (req, res, next) => {
     }
 
     if (user.role !== "admin") {
-      return res.status(400).json({
+      return res.status(403).json({
         message: "You don't have permisson to do this !!!",
       });
     }
@@ -34,7 +34,7 @@ export const checkPermission = async (req, res, next) => {
     // Step 4: Next
     next();
   } catch (error) {
-    res.json({
+    return res.json({
       name: error.name,
       message: error.message,
     });

@@ -1,6 +1,6 @@
 import { Router } from "express";
 import {
-  getAll,
+  getList,
   getDetail,
   create,
   update,
@@ -10,7 +10,7 @@ import { checkPermission } from "../middleware/checkPermission.js";
 
 const routerProduct = Router();
 
-routerProduct.get("/", getAll);
+routerProduct.get("/", getList);
 routerProduct.get("/:id", getDetail);
 routerProduct.post("/", checkPermission, create);
 routerProduct.put("/:id", checkPermission, update);
